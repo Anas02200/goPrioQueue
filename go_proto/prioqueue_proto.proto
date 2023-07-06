@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package _proto;
+
+//protoc --go_out=./generated --go_opt=paths=source_relative
+// --go-grpc_out=./generated --go-grpc_opt=paths=source_relative ./prioqueue_proto.proto
+option go_package = "./queue/prioqueue";
+
+
+
+
+service QueueOps {
+
+  rpc addJobToQueue (addJobRequest) returns (addJobReply) {}
+
+
+  rpc getJobsFromQueue(getNJobs) returns(getNJobsReply){}
+
+
+}
+
+
+
+
+
+message addJobRequest {
+
+  int32 priority = 1;
+  string message = 2;
+
+}
+
+
+message addJobReply{
+
+  string jobId = 1;
+
+}
+
+
+message systemJob{
+  string jobId = 1;
+  string userId = 2;
+  string promptData = 3;
+  int32 priority = 4;
+}
+
+message getNJobs{
+
+  int32 numOfJobs = 1;
+
+}
+message getNJobsReply{
+
+  repeated systemJob jobs = 1;
+
+}
